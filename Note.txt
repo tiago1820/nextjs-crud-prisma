@@ -1,0 +1,3 @@
+npx prisma studio
+
+npx create-next-app nextjs-prisma-crud
