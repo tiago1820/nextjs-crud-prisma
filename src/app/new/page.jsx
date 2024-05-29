@@ -43,9 +43,8 @@ function NewPage({ params }) {
             });
             const data = await res.json();
         }
-        router.refresh();
         router.push("/");
-
+        router.refresh();
     }
 
     return (
@@ -70,10 +69,30 @@ function NewPage({ params }) {
                     onChange={(e) => setDescription(e.target.value)}
                     value={description}
                 ></textarea>
-
-                <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
-                >Crear</button>
+                <div className="flex justify-between">
+                    <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
+                        type="submit"
+                    >Crear</button>
+                    {
+                        params.id && (
+                            <button
+                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                type="button"
+                                onClick={async () => {
+                                    const res = await fetch(`/api/tasks/${params.id}`, {
+                                        method: "DELETE",
+                                    })
+                                    const data = await res.json()
+                                    router.push("/")
+                                    router.refresh()
+                                }}
+                            >
+                                Delete
+                            </button>
+                        )
+                    }
+                </div>
             </form>
         </div>
     )
